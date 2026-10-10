@@ -181,3 +181,17 @@ async def batch_sentiment(request: SentimentRequest):
 @app.get("/")
 def home():
     return {"message": "Student and sentiment APIs are running"}
+
+
+@app.post("/")
+async def sentiment_root(request: SentimentRequest):
+    return {
+        "results": [
+            {
+                "sentence": sentence,
+                "sentiment": analyze_sentiment(sentence),
+            }
+            for sentence in request.sentences
+        ]
+    }
+
